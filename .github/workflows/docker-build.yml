@@ -15,10 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set lowercase repository name
-        run: |
-          echo "REPO_LOWER=${GITHUB_REPOSITORY,,}" | tr '[:upper:]' '[:lower:]' >> $GITHUB_ENV
-
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -31,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ env.REPO_LOWER }}:latest
+          tags: ghcr.io/octaveconsulting/documenso:latest
