@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Preview, Section } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateDocumentRejectionConfirmed } from '../template-components/template-document-rejection-confirmed';
@@ -19,11 +16,9 @@ export function DocumentRejectionConfirmedEmail({
   documentName,
   documentOwnerName,
   reason,
-  assetBaseUrl = 'http://localhost:3002',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: DocumentRejectionConfirmedEmailProps) {
-  const { _ } = useLingui();
-
-  const previewText = _(msg`You have rejected the document '${documentName}'`);
+  const previewText = `Vous avez refusé de signer le document « ${documentName} »`;
 
   return (
     <Html>
