@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Preview, Section } from '../components';
 import { TemplateAccessAuth2FA } from '../template-components/template-access-auth-2fa';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
@@ -21,18 +18,14 @@ export const AccessAuth2FAEmailTemplate = ({
   userEmail,
   userName,
   expiresInMinutes,
-  assetBaseUrl = 'http://localhost:3002',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: AccessAuth2FAEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Your verification code is ${code}`;
-
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{`Votre code de vérification : ${code}`}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
