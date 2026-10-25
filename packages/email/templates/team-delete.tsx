@@ -1,6 +1,4 @@
 import { formatTeamUrl } from '@documenso/lib/utils/teams';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
 
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
@@ -14,23 +12,20 @@ export type TeamDeleteEmailProps = {
 };
 
 export const TeamDeleteEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  baseUrl = 'https://sign.octave.consulting',
   teamUrl = 'demo',
 }: TeamDeleteEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`A team you were a part of has been deleted`;
-
-  const title = msg`A team you were a part of has been deleted`;
-
-  const description = msg`The following team has been deleted. You will no longer be able to access this team and its documents`;
+  const previewText = 'Une équipe dont vous faisiez partie a été supprimée';
+  const title = 'Une équipe dont vous faisiez partie a été supprimée';
+  const description =
+    "L'équipe suivante a été supprimée. Vous n'aurez plus accès à cette équipe ni à ses documents.";
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -41,9 +36,9 @@ export const TeamDeleteEmailTemplate = ({
             </Section>
 
             <Section className="p-2 text-muted-foreground">
-              <Text className="text-center font-medium text-foreground text-lg">{_(title)}</Text>
+              <Text className="text-center font-medium text-foreground text-lg">{title}</Text>
 
-              <Text className="my-1 text-center text-base">{_(description)}</Text>
+              <Text className="my-1 text-center text-base">{description}</Text>
 
               <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
                 {formatTeamUrl(teamUrl, baseUrl)}
