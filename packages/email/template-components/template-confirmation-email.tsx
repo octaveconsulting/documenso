@@ -15,11 +15,11 @@ export const TemplateConfirmationEmail = ({ confirmationLink, assetBaseUrl }: Te
 
       <Section className="flex-row items-center justify-center">
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>Welcome to Documenso!</Trans>
+          <Trans>Bienvenue !</Trans>
         </Text>
 
         <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>Before you get started, please confirm your email address by clicking the button below:</Trans>
+          <Trans>Avant de commencer, veuillez confirmer votre adresse e-mail en cliquant sur le bouton ci-dessous :</Trans>
         </Text>
 
         <Section className="mt-8 mb-6 text-center">
@@ -27,11 +27,11 @@ export const TemplateConfirmationEmail = ({ confirmationLink, assetBaseUrl }: Te
             className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
             href={confirmationLink}
           >
-            <Trans>Confirm email</Trans>
+            <Trans>Confirmer mon e-mail</Trans>
           </Button>
           <Text className="mt-8 text-center text-muted-foreground text-sm italic">
             <Trans>
-              You can also copy and paste this link into your browser: {confirmationLink} (link expires in 1 hour)
+              Vous pouvez également copier et coller ce lien dans votre navigateur : {confirmationLink} (ce lien expire dans 1 heure)
             </Trans>
           </Text>
         </Section>
