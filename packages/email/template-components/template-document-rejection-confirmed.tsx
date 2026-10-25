@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Container, Heading, Section, Text } from '../components';
 
 interface TemplateDocumentRejectionConfirmedProps {
@@ -18,30 +16,31 @@ export function TemplateDocumentRejectionConfirmed({
   return (
     <Container>
       <Section>
-        <Heading className="font-semibold text-2xl">
-          <Trans>Rejection Confirmed</Trans>
+        {/* Titre principal */}
+        <Heading className="font-semibold text-2xl text-foreground">
+          Refus confirmé
         </Heading>
 
+        {/* Message de confirmation */}
         <Text className="text-base text-foreground">
-          <Trans>
-            This email confirms that you have rejected the document{' '}
-            <strong className="font-bold">"{documentName}"</strong> sent by {documentOwnerName}.
-          </Trans>
+          Cet e-mail confirme que vous avez refusé de signer le document{' '}
+          <strong className="font-bold">« {documentName} »</strong> envoyé par {documentOwnerName}.
         </Text>
 
+        {/* Motif du refus (optionnel) */}
         {reason && (
           <Text className="font-medium text-base text-muted-foreground">
-            <Trans>Rejection reason: {reason}</Trans>
+            Motif du refus : {reason}
           </Text>
         )}
 
-        <Text className="text-base">
-          <Trans>
-            The document owner has been notified of this rejection. No further action is required from you at this time.
-            The document owner may contact you with any questions regarding this rejection.
-          </Trans>
+        {/* Explication et suite */}
+        <Text className="text-base text-muted-foreground">
+          L'expéditeur du document a été immédiatement notifié de votre refus. Aucune action supplémentaire n'est requise de votre part pour le moment. L'expéditeur pourra revenir vers vous s'il souhaite obtenir des précisions.
         </Text>
       </Section>
     </Container>
   );
 }
+
+export default TemplateDocumentRejectionConfirmed;
