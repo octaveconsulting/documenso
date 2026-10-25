@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Section, Text } from '../components';
 import { TemplateDocumentImage } from './template-document-image';
 
@@ -28,40 +26,25 @@ export const TemplateRecipientRemovedByAdmin = ({
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section>
+        {/* Titre principal adapté selon le destinataire */}
         <Text className="mt-6 mb-0 text-left font-semibold text-foreground text-lg">
-          {audience === 'recipient' ? (
-            <Trans>You have been removed from a document</Trans>
-          ) : (
-            <Trans>A recipient has been removed from your document</Trans>
-          )}
+          {audience === 'recipient'
+            ? "Vous avez été retiré d'un document"
+            : 'Un signataire a été retiré de votre document'}
         </Text>
 
+        {/* Détails du retrait */}
         <Text className="mx-auto mt-1 mb-6 text-left text-base text-muted-foreground">
-          {audience === 'recipient' ? (
-            <Trans>
-              You have been removed from the document "{documentName}" by an administrator, typically at the request of
-              the document sender.
-            </Trans>
-          ) : (
-            <Trans>
-              {recipientLabel} has been removed from the document "{documentName}" by an administrator, typically at the
-              request of the document sender.
-            </Trans>
-          )}
+          {audience === 'recipient'
+            ? `Vous avez été retiré du document « ${documentName} » par un administrateur, généralement à la demande de l'expéditeur.`
+            : `${recipientLabel} a été retiré du document « ${documentName} » par un administrateur, généralement à la demande de l'expéditeur.`}
         </Text>
 
+        {/* Consigne finale */}
         <Text className="mx-auto mt-1 mb-6 text-left text-base text-muted-foreground">
-          {audience === 'recipient' ? (
-            <Trans>
-              There is no action required on your side. If you believe this was a mistake, please contact the document
-              sender.
-            </Trans>
-          ) : (
-            <Trans>
-              There is no action required on your side. If you believe this was a mistake, please contact your
-              administrator.
-            </Trans>
-          )}
+          {audience === 'recipient'
+            ? "Aucune action n'est requise de votre part. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'expéditeur du document."
+            : "Aucune action n'est requise de votre part. Si vous pensez qu'il s'agit d'une erreur, veuillez contacter votre administrateur."}
         </Text>
       </Section>
     </>
