@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Button, Section, Text } from '../components';
 import { TemplateDocumentImage } from './template-document-image';
 
@@ -25,25 +23,26 @@ export const TemplateRecipientExpired = ({
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section>
+        {/* Titre principal */}
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>
-            Signing window expired for "{displayName}" on "{documentName}"
-          </Trans>
+          Délai de signature expiré pour {displayName}
+          <br />
+          sur « {documentName} »
         </Text>
 
+        {/* Message d'explication */}
         <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>
-            The signing window for {displayName} on document "{documentName}" has expired. You can resend the document
-            to extend their deadline or cancel the document.
-          </Trans>
+          Le délai accordé à {displayName} pour signer le document « {documentName} » a expiré. Vous pouvez renvoyer le document afin de prolonger l'échéance ou procéder à son annulation.
         </Text>
 
+        {/* Bouton d'action CTA */}
         <Section className="my-4 text-center">
           <Button
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+            className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
             href={documentLink}
+            style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
           >
-            <Trans>View Document</Trans>
+            Consulter le document
           </Button>
         </Section>
       </Section>
