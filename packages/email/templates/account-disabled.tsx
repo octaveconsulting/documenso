@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Img, Preview, Section } from '../components';
 import type { TemplateAccountDisabledProps } from '../template-components/template-account-disabled';
 import { TemplateAccountDisabled } from '../template-components/template-account-disabled';
@@ -10,23 +7,25 @@ import { getEmailAssetUrl } from '../utils/asset-url';
 export type AccountDisabledEmailTemplateProps = Partial<TemplateAccountDisabledProps>;
 
 export const AccountDisabledEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  supportEmail = 'support@documenso.com',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  supportEmail = 'support@octave.consulting',
 }: AccountDisabledEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Your Documenso account has been disabled`;
+  const previewText = 'Votre compte a été suspendu';
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
             <Section>
-              <Img src={getEmailAssetUrl(assetBaseUrl, 'static/logo.png')} alt="Documenso Logo" className="mb-4 h-6" />
+              <Img
+                src={getEmailAssetUrl(assetBaseUrl, 'static/logo.png')}
+                alt="Signature Logo"
+                className="mb-4 h-6"
+              />
 
               <TemplateAccountDisabled assetBaseUrl={assetBaseUrl} supportEmail={supportEmail} />
             </Section>
