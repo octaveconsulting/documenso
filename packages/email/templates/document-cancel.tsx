@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Hr, Html, Preview, Section } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import type { TemplateDocumentCancelProps } from '../template-components/template-document-cancel';
@@ -10,22 +7,20 @@ import { TemplateFooter } from '../template-components/template-footer';
 export type DocumentCancelEmailTemplateProps = Partial<TemplateDocumentCancelProps>;
 
 export const DocumentCancelTemplate = ({
-  inviterName = 'Lucas Smith',
-  inviterEmail = 'lucas@documenso.com',
-  documentName = 'Open Source Pledge.pdf',
-  assetBaseUrl = 'http://localhost:3002',
+  inviterName = 'Un collaborateur',
+  inviterEmail = 'support@octave.consulting',
+  documentName = 'Document',
+  assetBaseUrl = 'https://sign.octave.consulting',
   cancellationReason,
 }: DocumentCancelEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`${inviterName} has cancelled the document ${documentName}, you don't need to sign it anymore.`;
+  const previewText = `${inviterName} a annulé le document « ${documentName} », vous n'avez plus besoin de le signer.`;
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
