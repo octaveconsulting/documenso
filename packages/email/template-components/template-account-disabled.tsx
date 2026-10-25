@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Link, Section, Text } from '../components';
 import { TemplateDocumentImage } from './template-document-image';
 
@@ -14,31 +12,36 @@ export const TemplateAccountDisabled = ({ assetBaseUrl, supportEmail }: Template
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section className="flex-row items-center justify-center">
+        {/* Titre principal */}
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>Your account has been disabled</Trans>
+          Votre compte a été suspendu
         </Text>
 
+        {/* Explication du motif */}
         <Text className="mx-auto mt-2 mb-0 max-w-[80%] text-center text-base text-muted-foreground">
-          <Trans>
-            One of your signing requests has been reported. As part of keeping signers safe, we've disabled your account
-            for now.
-          </Trans>
+          L'une de vos demandes de signature a fait l'objet d'un signalement. Afin de garantir la sécurité des signataires, votre compte a été temporairement suspendu.
         </Text>
 
+        {/* Restrictions */}
         <Text className="mx-auto mt-2 mb-0 max-w-[80%] text-center text-base text-muted-foreground">
-          <Trans>You won't be able to sign in or send documents while it is disabled.</Trans>
+          Vous ne pourrez ni vous connecter ni envoyer de documents tant que la suspension est active.
         </Text>
 
+        {/* Contact du support */}
         <Text className="mx-auto mt-4 mb-2 max-w-[80%] text-center text-base text-muted-foreground">
-          <Trans>
-            If you believe this was a mistake, contact us at{' '}
-            <Link href={`mailto:${supportEmail}`} className="text-primary">
-              {supportEmail}
-            </Link>
-            .
-          </Trans>
+          Si vous estimez qu'il s'agit d'une erreur, contactez notre équipe à l'adresse{' '}
+          <Link
+            href={`mailto:${supportEmail}`}
+            className="text-[#3cb9c9] no-underline hover:underline"
+            style={{ color: '#3cb9c9' }}
+          >
+            {supportEmail}
+          </Link>
+          .
         </Text>
       </Section>
     </>
   );
 };
+
+export default TemplateAccountDisabled;
