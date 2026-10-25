@@ -1,7 +1,3 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 import { RecipientRole } from '@prisma/client';
 
 import { Body, Button, Container, Head, Html, Preview, Section, Text } from '../components';
@@ -17,24 +13,28 @@ export type DocumentCompletedEmailTemplateProps = {
   assetBaseUrl?: string;
 };
 
+const ROLE_ACTION_FR: Record<RecipientRole, string> = {
+  [RecipientRole.SIGNER]: 'a signé',
+  [RecipientRole.VIEWER]: 'a consulté',
+  [RecipientRole.APPROVER]: 'a approuvé',
+  [RecipientRole.CC]: 'a reçu une copie de',
+};
+
 export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
-  recipientName = 'John Doe',
+  recipientName = 'Un utilisateur',
   recipientRole = RecipientRole.SIGNER,
-  documentLink = 'http://localhost:3000',
-  documentName = 'Open Source Pledge.pdf',
-  assetBaseUrl = 'http://localhost:3002',
+  documentLink = 'https://sign.octave.consulting',
+  documentName = 'Document.pdf',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: DocumentCompletedEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const action = _(RECIPIENT_ROLES_DESCRIPTION[recipientRole].actioned).toLowerCase();
-
-  const previewText = msg`Document created from direct template`;
+  const actionText = ROLE_ACTION_FR[recipientRole] ?? 'a signé';
+  const previewText = 'Document créé à partir d’un lien direct';
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -45,9 +45,7 @@ export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
 
               <Section>
                 <Text className="mb-0 text-center font-semibold text-foreground text-lg">
-                  <Trans>
-                    {recipientName} {action} a document by using one of your direct links
-                  </Trans>
+                  {recipientName} {actionText} un document en utilisant l'un de vos liens directs
                 </Text>
 
                 <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 text-muted-foreground text-sm">
@@ -56,10 +54,11 @@ export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
 
                 <Section className="my-6 text-center">
                   <Button
-                    className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
                     href={documentLink}
+                    style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
                   >
-                    <Trans>View document</Trans>
+                    Consulter le document
                   </Button>
                 </Section>
               </Section>
