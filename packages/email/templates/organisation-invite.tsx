@@ -1,7 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
-
 import { Body, Button, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -16,21 +12,19 @@ export type OrganisationInviteEmailProps = {
 };
 
 export const OrganisationInviteEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
-  senderName = 'John Doe',
-  organisationName = 'Organisation Name',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  baseUrl = 'https://sign.octave.consulting',
+  senderName = 'Un collaborateur',
+  organisationName = 'Nom de l’organisation',
   token = '',
 }: OrganisationInviteEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Accept invitation to join an organisation on Documenso`;
+  const previewText = "Accepter l'invitation à rejoindre une organisation sur Signature";
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -42,11 +36,11 @@ export const OrganisationInviteEmailTemplate = ({
 
             <Section className="p-2 text-muted-foreground">
               <Text className="text-center font-medium text-foreground text-lg">
-                <Trans>Join {organisationName} on Documenso</Trans>
+                Rejoindre {organisationName} sur Signature
               </Text>
 
               <Text className="my-1 text-center text-base">
-                <Trans>You have been invited to join the following organisation</Trans>
+                Vous avez été invité à rejoindre l'organisation suivante :
               </Text>
 
               <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
@@ -54,23 +48,22 @@ export const OrganisationInviteEmailTemplate = ({
               </div>
 
               <Text className="my-1 text-center text-base">
-                <Trans>
-                  by <span className="text-foreground">{senderName}</span>
-                </Trans>
+                par <span className="text-foreground">{senderName}</span>
               </Text>
 
               <Section className="mt-6 mb-6 text-center">
                 <Button
-                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+                  className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
                   href={`${baseUrl}/organisation/invite/${token}`}
+                  style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
                 >
-                  <Trans>Accept</Trans>
+                  Accepter
                 </Button>
                 <Button
                   className="ml-4 inline-flex items-center justify-center rounded-lg bg-muted px-6 py-3 text-center font-medium text-muted-foreground text-sm no-underline"
                   href={`${baseUrl}/organisation/decline/${token}`}
                 >
-                  <Trans>Decline</Trans>
+                  Refuser
                 </Button>
               </Section>
             </Section>
