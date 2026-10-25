@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Hr, Html, Preview, Section } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -10,22 +7,20 @@ import { TemplateRecipientExpired } from '../template-components/template-recipi
 export type RecipientExpiredEmailTemplateProps = Partial<TemplateRecipientExpiredProps>;
 
 export const RecipientExpiredTemplate = ({
-  documentName = 'Open Source Pledge.pdf',
-  recipientName = 'John Doe',
-  recipientEmail = 'john@example.com',
-  documentLink = 'https://documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  documentName = 'Document.pdf',
+  recipientName = 'Un destinataire',
+  recipientEmail = 'destinataire@exemple.fr',
+  documentLink = 'https://sign.octave.consulting',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: RecipientExpiredEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`The signing window for "${recipientName}" on document "${documentName}" has expired.`;
+  const previewText = `Le délai de signature accordé à « ${recipientName} » pour le document « ${documentName} » a expiré.`;
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
