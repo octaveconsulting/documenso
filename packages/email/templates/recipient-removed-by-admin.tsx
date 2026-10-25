@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Hr, Html, Preview, Section } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -13,24 +10,22 @@ export type RecipientRemovedByAdminEmailTemplateProps = Partial<TemplateRecipien
 
 export const RecipientRemovedByAdminEmailTemplate = ({
   audience = 'recipient',
-  documentName = 'Open Source Pledge.pdf',
-  recipientName = 'Lucas Smith',
-  recipientEmail = 'lucas@documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  documentName = 'Document.pdf',
+  recipientName = 'Un destinataire',
+  recipientEmail = 'destinataire@exemple.fr',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: RecipientRemovedByAdminEmailTemplateProps) => {
-  const { _ } = useLingui();
-
   const previewText =
     audience === 'recipient'
-      ? msg`You have been removed from the document "${documentName}" by an administrator.`
-      : msg`${recipientName} has been removed from the document "${documentName}" by an administrator.`;
+      ? `Un administrateur vous a retiré du document « ${documentName} ».`
+      : `« ${recipientName} » a été retiré du document « ${documentName} » par un administrateur.`;
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
