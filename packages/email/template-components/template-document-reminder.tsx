@@ -1,6 +1,3 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 import { RecipientRole } from '@prisma/client';
 import { match } from 'ts-pattern';
 
@@ -15,6 +12,14 @@ export interface TemplateDocumentReminderProps {
   role: RecipientRole;
 }
 
+const ROLE_ACTION_VERB_FR: Record<RecipientRole, string> = {
+  [RecipientRole.SIGNER]: 'signer',
+  [RecipientRole.VIEWER]: 'consulter',
+  [RecipientRole.APPROVER]: 'approuver',
+  [RecipientRole.ASSISTANT]: 'compléter',
+  [RecipientRole.CC]: 'consulter',
+};
+
 export const TemplateDocumentReminder = ({
   recipientName,
   documentName,
@@ -22,47 +27,48 @@ export const TemplateDocumentReminder = ({
   assetBaseUrl,
   role,
 }: TemplateDocumentReminderProps) => {
-  const { _ } = useLingui();
-
-  const { actionVerb } = RECIPIENT_ROLES_DESCRIPTION[role];
+  const actionVerb = ROLE_ACTION_VERB_FR[role] ?? 'consulter';
 
   return (
     <>
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section>
+        {/* Titre principal */}
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>
-            Reminder: Please {_(actionVerb).toLowerCase()} your document
-            <br />"{documentName}"
-          </Trans>
+          Rappel : Veuillez {actionVerb} votre document
+          <br />"{documentName}"
         </Text>
 
+        {/* Salutation */}
         <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>Hi {recipientName},</Trans>
+          Bonjour {recipientName},
         </Text>
 
+        {/* Sous-titre indicatif */}
         <Text className="my-1 text-center text-base text-muted-foreground">
           {match(role)
-            .with(RecipientRole.SIGNER, () => <Trans>Continue by signing the document.</Trans>)
-            .with(RecipientRole.VIEWER, () => <Trans>Continue by viewing the document.</Trans>)
-            .with(RecipientRole.APPROVER, () => <Trans>Continue by approving the document.</Trans>)
+            .with(RecipientRole.SIGNER, () => 'Continuez en signant le document.')
+            .with(RecipientRole.VIEWER, () => 'Continuez en consultant le document.')
+            .with(RecipientRole.APPROVER, () => 'Continuez en approuvant le document.')
             .with(RecipientRole.CC, () => '')
-            .with(RecipientRole.ASSISTANT, () => <Trans>Continue by assisting with the document.</Trans>)
+            .with(RecipientRole.ASSISTANT, () => 'Continuez en complétant le document.')
             .exhaustive()}
         </Text>
 
+        {/* Bouton d'action principal */}
         <Section className="mt-8 mb-6 text-center">
           <Button
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+            className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
             href={signDocumentLink}
+            style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
           >
             {match(role)
-              .with(RecipientRole.SIGNER, () => <Trans>Sign Document</Trans>)
-              .with(RecipientRole.VIEWER, () => <Trans>View Document</Trans>)
-              .with(RecipientRole.APPROVER, () => <Trans>Approve Document</Trans>)
+              .with(RecipientRole.SIGNER, () => 'Signer le document')
+              .with(RecipientRole.VIEWER, () => 'Consulter le document')
+              .with(RecipientRole.APPROVER, () => 'Approuver le document')
               .with(RecipientRole.CC, () => '')
-              .with(RecipientRole.ASSISTANT, () => <Trans>Assist Document</Trans>)
+              .with(RecipientRole.ASSISTANT, () => 'Préparer le document')
               .exhaustive()}
           </Button>
         </Section>
