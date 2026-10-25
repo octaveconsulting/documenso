@@ -1,7 +1,4 @@
 import { formatTeamUrl } from '@documenso/lib/utils/teams';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
@@ -17,21 +14,19 @@ export type TeamEmailRemovedTemplateProps = {
 };
 
 export const TeamEmailRemovedTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
-  teamEmail = 'example@documenso.com',
-  teamName = 'Team Name',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  baseUrl = 'https://sign.octave.consulting',
+  teamEmail = 'support@octave.consulting',
+  teamName = 'Nom de l’équipe',
   teamUrl = 'demo',
 }: TeamEmailRemovedTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Team email removed for ${teamName} on Documenso`;
+  const previewText = `Adresse e-mail d'équipe supprimée pour ${teamName} sur Signature`;
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid px-2 pt-2 backdrop-blur-sm">
@@ -43,13 +38,11 @@ export const TeamEmailRemovedTemplate = ({
 
             <Section className="p-2 text-muted-foreground">
               <Text className="text-center font-medium text-foreground text-lg">
-                <Trans>Team email removed</Trans>
+                Adresse e-mail d'équipe supprimée
               </Text>
 
               <Text className="my-1 text-center text-base">
-                <Trans>
-                  The team email <span className="font-bold">{teamEmail}</span> has been removed from the following team
-                </Trans>
+                L'adresse e-mail d'équipe <span className="font-bold">{teamEmail}</span> a été supprimée de l'équipe suivante :
               </Text>
 
               <div className="mx-auto mt-2 mb-6 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
