@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Img, Preview, Section } from '../components';
 import type { TemplateAdminUserCreatedProps } from '../template-components/template-admin-user-created';
 import { TemplateAdminUserCreated } from '../template-components/template-admin-user-created';
@@ -9,22 +6,24 @@ import { getEmailAssetUrl } from '../utils/asset-url';
 
 export const AdminUserCreatedTemplate = ({
   resetPasswordLink,
-  assetBaseUrl = 'http://localhost:3002',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: TemplateAdminUserCreatedProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Set your password for Documenso`;
+  const previewText = 'Définissez votre mot de passe pour Signature';
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
             <Section>
-              <Img src={getEmailAssetUrl(assetBaseUrl, 'static/logo.png')} alt="Documenso Logo" className="mb-4 h-6" />
+              <Img
+                src={getEmailAssetUrl(assetBaseUrl, 'static/logo.png')}
+                alt="Signature Logo"
+                className="mb-4 h-6"
+              />
 
               <TemplateAdminUserCreated resetPasswordLink={resetPasswordLink} assetBaseUrl={assetBaseUrl} />
             </Section>
