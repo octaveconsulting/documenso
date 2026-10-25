@@ -1,42 +1,55 @@
 import { Img, Link } from '../components';
 import { useBranding } from '../providers/branding';
-import { getEmailAssetUrl } from '../utils/asset-url';
 import { getSafeBrandingUrl } from '../utils/branding-url';
 
 export type TemplateBrandingLogoProps = {
-  assetBaseUrl: string;
+  assetBaseUrl?: string;
   className?: string;
 };
 
-/**
- * Renders the email logo.
- *
- * - When custom branding is enabled with a logo, the branding logo is shown.
- *   If a safe (http/https) Brand Website is configured, the logo links to it.
- * - Otherwise the Documenso logo is shown.
- */
-export const TemplateBrandingLogo = ({ assetBaseUrl, className = 'mb-4 h-6' }: TemplateBrandingLogoProps) => {
+export const TemplateBrandingLogo = ({
+  className = 'mb-6',
+}: TemplateBrandingLogoProps) => {
   const branding = useBranding();
-
   const hasCustomBrandingLogo = branding.brandingEnabled && Boolean(branding.brandingLogo);
 
-  if (!hasCustomBrandingLogo) {
-    const documensoLogoUrl = getEmailAssetUrl(assetBaseUrl, 'static/logo.png');
+  // Logo SIGNATURE : 240x40 px (Retina 480x80 px)
+  const logoImage = (
+    <Img
+      src={
+        hasCustomBrandingLogo
+          ? branding.brandingLogo
+          : 'https://sign.octave.consulting/signature.png'
+      }
+      alt="Signature"
+      width="240"
+      height="40"
+      className={className}
+      style={{
+        display: 'block',
+        width: '240px',
+        maxWidth: '100%',
+        height: 'auto',
+        aspectRatio: '240 / 40',
+        objectFit: 'contain',
+        border: 'none',
+        outline: 'none',
+        textDecoration: 'none',
+      }}
+    />
+  );
 
-    return <Img src={documensoLogoUrl} alt="Documenso Logo" className={className} />;
-  }
+  const targetUrl = hasCustomBrandingLogo
+    ? getSafeBrandingUrl(branding.brandingUrl)
+    : 'https://sign.octave.consulting';
 
-  const brandingLogo = <Img src={branding.brandingLogo} alt="Branding Logo" className={className} />;
-
-  const safeBrandingUrl = getSafeBrandingUrl(branding.brandingUrl);
-
-  if (!safeBrandingUrl) {
-    return brandingLogo;
+  if (!targetUrl) {
+    return logoImage;
   }
 
   return (
-    <Link href={safeBrandingUrl} target="_blank">
-      {brandingLogo}
+    <Link href={targetUrl} target="_blank">
+      {logoImage}
     </Link>
   );
 };
