@@ -1,3 +1,20 @@
+Property 'ASSISTANT' is missing in type '{ SIGNER: string; VIEWER: string; APPROVER: string; CC: string; }' 
+but required in type 'Record<RecipientRole, string>'.
+```[cite: 6, 7]
+
+Dans la version de Prisma utilisée par Documenso, l'enum `RecipientRole` contient également la valeur **`ASSISTANT`**. Comme le dictionnaire était typé en `Record<RecipientRole, string>`, TypeScript exige strictement l'exhaustivité de toutes les clés de l'enum[cite: 6, 7].
+
+Ce problème concerne deux fichiers :
+1. `document-created-from-direct-template.tsx`
+2. `document-invite.tsx`
+
+Voici les versions corrigées avec `Partial<Record<RecipientRole, string>>` et la gestion du rôle `ASSISTANT`.
+
+---
+
+### 1. `document-created-from-direct-template.tsx`
+
+```tsx
 import { RecipientRole } from '@prisma/client';
 
 import { Body, Button, Container, Head, Html, Preview, Section, Text } from '../components';
@@ -13,11 +30,12 @@ export type DocumentCompletedEmailTemplateProps = {
   assetBaseUrl?: string;
 };
 
-const ROLE_ACTION_FR: Record<RecipientRole, string> = {
+const ROLE_ACTION_FR: Partial<Record<RecipientRole, string>> = {
   [RecipientRole.SIGNER]: 'a signé',
   [RecipientRole.VIEWER]: 'a consulté',
   [RecipientRole.APPROVER]: 'a approuvé',
   [RecipientRole.CC]: 'a reçu une copie de',
+  [RecipientRole.ASSISTANT]: 'a préparé',
 };
 
 export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
@@ -27,7 +45,7 @@ export const DocumentCreatedFromDirectTemplateEmailTemplate = ({
   documentName = 'Document.pdf',
   assetBaseUrl = 'https://sign.octave.consulting',
 }: DocumentCompletedEmailTemplateProps) => {
-  const actionText = ROLE_ACTION_FR[recipientRole] ?? 'a signé';
+  const actionText = (recipientRole && ROLE_ACTION_FR[recipientRole]) ?? 'a signé';
   const previewText = 'Document créé à partir d’un lien direct';
 
   return (
