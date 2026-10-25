@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Column, Img, Section, Text } from '../components';
 import { getEmailAssetUrl } from '../utils/asset-url';
 import { TemplateDocumentImage } from './template-document-image';
@@ -24,6 +22,7 @@ export const TemplateDocumentRecipientSigned = ({
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section>
+        {/* Statut avec icône de complétion */}
         <Section className="mb-4">
           <Column align="center">
             <Text className="font-semibold text-base text-foreground">
@@ -32,19 +31,19 @@ export const TemplateDocumentRecipientSigned = ({
                 className="-mt-0.5 mr-2 inline h-7 w-7 align-middle"
                 alt=""
               />
-              <Trans>Completed</Trans>
+              Signature apposée
             </Text>
           </Column>
         </Section>
 
+        {/* Titre principal */}
         <Text className="mb-0 text-center font-semibold text-foreground text-lg">
-          <Trans>
-            {recipientReference} has signed "{documentName}"
-          </Trans>
+          {recipientReference} a signé le document « {documentName} »
         </Text>
 
+        {/* Message d'information */}
         <Text className="mx-auto mt-1 mb-6 max-w-[80%] text-center text-base text-muted-foreground">
-          <Trans>{recipientReference} has completed signing the document.</Trans>
+          {recipientReference} a finalisé la signature de son côté.
         </Text>
       </Section>
     </>
