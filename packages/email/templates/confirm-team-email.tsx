@@ -1,7 +1,4 @@
 import { formatTeamUrl } from '@documenso/lib/utils/teams';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 
 import { Body, Button, Container, Head, Hr, Html, Link, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
@@ -17,21 +14,19 @@ export type ConfirmTeamEmailProps = {
 };
 
 export const ConfirmTeamEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
-  teamName = 'Team Name',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  baseUrl = 'https://sign.octave.consulting',
+  teamName = 'Nom de l’équipe',
   teamUrl = 'demo',
   token = '',
 }: ConfirmTeamEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Accept team email request for ${teamName} on Documenso`;
+  const previewText = `Demande d'utilisation de votre adresse e-mail par l'équipe ${teamName} sur Signature`;
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid px-2 pt-2 backdrop-blur-sm">
@@ -43,14 +38,11 @@ export const ConfirmTeamEmailTemplate = ({
 
             <Section className="p-2 text-muted-foreground">
               <Text className="text-center font-medium text-foreground text-lg">
-                <Trans>Verify your team email address</Trans>
+                Vérifiez l'adresse e-mail de votre équipe
               </Text>
 
               <Text className="text-center text-base">
-                <Trans>
-                  <span className="font-bold">{teamName}</span> has requested to use your email address for their team
-                  on Documenso.
-                </Trans>
+                <span className="font-bold">{teamName}</span> a demandé à utiliser votre adresse e-mail pour son équipe sur Signature.
               </Text>
 
               <div className="mx-auto mt-6 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
@@ -59,43 +51,42 @@ export const ConfirmTeamEmailTemplate = ({
 
               <Section className="mt-6">
                 <Text className="my-0 text-sm">
-                  <Trans>
-                    By accepting this request, you will be granting <strong>{teamName}</strong> access to:
-                  </Trans>
+                  En acceptant cette demande, vous autorisez <strong>{teamName}</strong> à :
                 </Text>
 
                 <ul className="mt-2 mb-0">
                   <li className="text-sm">
-                    <Trans>View all documents sent to and from this email address</Trans>
+                    Consulter tous les documents envoyés à et depuis cette adresse e-mail
                   </li>
                   <li className="mt-1 text-sm">
-                    <Trans>Allow document recipients to reply directly to this email address</Trans>
+                    Permettre aux destinataires de répondre directement à cette adresse e-mail
                   </li>
                   <li className="mt-1 text-sm">
-                    <Trans>Send documents on behalf of the team using the email address</Trans>
+                    Envoyer des documents au nom de l'équipe via cette adresse e-mail
                   </li>
                 </ul>
 
                 <Text className="mt-2 text-sm">
-                  <Trans>
-                    You can revoke access at any time in your team settings on Documenso{' '}
-                    <Link href={`${baseUrl}/settings/teams`}>here</Link>.
-                  </Trans>
+                  Vous pouvez révoquer cet accès à tout moment dans les paramètres de votre équipe sur Signature{' '}
+                  <Link href={`${baseUrl}/settings/teams`} className="text-[#3cb9c9] underline" style={{ color: '#3cb9c9' }}>
+                    ici
+                  </Link>.
                 </Text>
               </Section>
 
               <Section className="mt-8 mb-6 text-center">
                 <Button
-                  className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+                  className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
                   href={`${baseUrl}/team/verify/email/${token}`}
+                  style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
                 >
-                  <Trans>Accept</Trans>
+                  Accepter
                 </Button>
               </Section>
             </Section>
 
             <Text className="text-center text-muted-foreground text-xs">
-              <Trans>Link expires in 1 hour.</Trans>
+              Ce lien expirera dans 1 heure.
             </Text>
           </Container>
 
