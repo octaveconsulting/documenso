@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Button, Link, Section, Text } from '../components';
 import { TemplateDocumentImage } from './template-document-image';
 
@@ -14,44 +12,48 @@ export const TemplateAdminUserCreated = ({ resetPasswordLink, assetBaseUrl }: Te
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section className="flex-row items-center justify-center">
+        {/* Titre principal */}
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>Welcome to Documenso!</Trans>
+          Bienvenue sur Signature !
+        </Text>
+
+        {/* Message d'information */}
+        <Text className="my-1 text-center text-base text-muted-foreground">
+          Un administrateur a créé un compte d'accès pour vous.
         </Text>
 
         <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>An administrator has created a Documenso account for you.</Trans>
+          Pour commencer, veuillez définir votre mot de passe en cliquant sur le bouton ci-dessous :
         </Text>
 
-        <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>To get started, please set your password by clicking the button below:</Trans>
-        </Text>
-
+        {/* Bouton d'action CTA */}
         <Section className="mt-8 mb-6 text-center">
           <Button
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-center font-medium text-primary-foreground text-sm no-underline"
+            className="inline-flex items-center justify-center rounded-lg bg-[#3cb9c9] px-6 py-3 text-center font-medium text-white text-sm no-underline"
             href={resetPasswordLink}
+            style={{ backgroundColor: '#3cb9c9', color: '#ffffff' }}
           >
-            <Trans>Set Password</Trans>
+            Définir mon mot de passe
           </Button>
+
           <Text className="mt-8 text-center text-muted-foreground text-sm italic">
-            <Trans>
-              You can also copy and paste this link into your browser: {resetPasswordLink} (link expires in 24 hours)
-            </Trans>
+            Vous pouvez également copier et coller ce lien dans votre navigateur : {resetPasswordLink} (ce lien expire dans 24 heures)
           </Text>
         </Section>
 
+        {/* Support */}
         <Section className="mt-8">
           <Text className="text-center text-muted-foreground text-sm">
-            <Trans>
-              If you didn't expect this account or have any questions, please{' '}
-              <Link href="mailto:support@documenso.com" className="text-primary">
-                contact support
-              </Link>
-              .
-            </Trans>
+            Si vous n'attendiez pas la création de ce compte ou pour toute question, n'hésitez pas à{' '}
+            <Link href="mailto:support@octave.consulting" className="text-[#3cb9c9]" style={{ color: '#3cb9c9' }}>
+              contacter l'assistance
+            </Link>
+            .
           </Text>
         </Section>
       </Section>
     </>
   );
 };
+
+export default TemplateAdminUserCreated;
