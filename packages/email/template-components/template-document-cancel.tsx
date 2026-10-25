@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/react/macro';
-
 import { Section, Text } from '../components';
 import { TemplateDocumentImage } from './template-document-image';
 
@@ -22,24 +20,25 @@ export const TemplateDocumentCancel = ({
       <TemplateDocumentImage className="mt-6" assetBaseUrl={assetBaseUrl} />
 
       <Section>
+        {/* Titre principal */}
         <Text className="mx-auto mb-0 max-w-[80%] text-center font-semibold text-foreground text-lg">
-          <Trans>
-            {inviterName} has cancelled the document
-            <br />"{documentName}"
-          </Trans>
+          {inviterName} a annulé le document
+          <br />« {documentName} »
+        </Text>
+
+        {/* Précisions sur l'annulation */}
+        <Text className="my-1 text-center text-base text-muted-foreground">
+          Toutes les signatures associées ont été invalidées.
         </Text>
 
         <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>All signatures have been voided.</Trans>
+          Aucune action n'est plus requise de votre part.
         </Text>
 
-        <Text className="my-1 text-center text-base text-muted-foreground">
-          <Trans>You don't need to sign it anymore.</Trans>
-        </Text>
-
+        {/* Motif d'annulation optionnel */}
         {cancellationReason && (
-          <Text className="mt-4 text-center text-base">
-            <Trans>Reason for cancellation: {cancellationReason}</Trans>
+          <Text className="mt-4 text-center text-base text-foreground">
+            Motif de l'annulation : {cancellationReason}
           </Text>
         )}
       </Section>
