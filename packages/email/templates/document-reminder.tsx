@@ -1,6 +1,3 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
 import { RecipientRole } from '@prisma/client';
 
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
@@ -21,28 +18,32 @@ export type DocumentReminderEmailTemplateProps = {
   newAccountWarningSenderEmail?: string;
 };
 
+const ROLE_ACTION_VERB_FR: Record<string, string> = {
+  SIGNER: 'signer',
+  VIEWER: 'consulter',
+  APPROVER: 'approuver',
+  CC: 'recevoir en copie',
+};
+
 export const DocumentReminderEmailTemplate = ({
-  recipientName = 'John Doe',
-  documentName = 'Open Source Pledge.pdf',
-  signDocumentLink = 'https://documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  recipientName = 'Un destinataire',
+  documentName = 'Document.pdf',
+  signDocumentLink = 'https://sign.octave.consulting',
+  assetBaseUrl = 'https://sign.octave.consulting',
   customBody,
   role = RecipientRole.SIGNER,
   reportUrl,
   newAccountWarningSenderEmail,
 }: DocumentReminderEmailTemplateProps) => {
-  const { _ } = useLingui();
-
-  const action = _(RECIPIENT_ROLES_DESCRIPTION[role].actionVerb).toLowerCase();
-
-  const previewText = msg`Reminder to ${action} ${documentName}`;
+  const action = ROLE_ACTION_VERB_FR[role] ?? 'signer';
+  const previewText = `Rappel : n'oubliez pas de ${action} le document « ${documentName} »`;
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           {newAccountWarningSenderEmail && (
