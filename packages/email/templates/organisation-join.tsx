@@ -1,7 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
-
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -17,22 +13,20 @@ export type OrganisationJoinEmailProps = {
 };
 
 export const OrganisationJoinEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  baseUrl = 'https://documenso.com',
-  memberName = 'John Doe',
-  memberEmail = 'johndoe@documenso.com',
-  organisationName = 'Organisation Name',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  baseUrl = 'https://sign.octave.consulting',
+  memberName = 'Un membre',
+  memberEmail = 'support@octave.consulting',
+  organisationName = 'Nom de l’organisation',
   organisationUrl = 'demo',
 }: OrganisationJoinEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`A member has joined your organisation on Documenso`;
+  const previewText = 'Un membre a rejoint votre organisation sur Signature';
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -44,7 +38,7 @@ export const OrganisationJoinEmailTemplate = ({
 
             <Section className="p-2 text-muted-foreground">
               <Text className="text-center font-medium text-foreground text-lg">
-                <Trans>A new member has joined your organisation {organisationName}</Trans>
+                Un nouveau membre a rejoint votre organisation {organisationName}
               </Text>
 
               <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
