@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Preview, Section } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -10,19 +7,17 @@ import { TemplateForgotPassword } from '../template-components/template-forgot-p
 export type ForgotPasswordTemplateProps = Partial<TemplateForgotPasswordProps>;
 
 export const ForgotPasswordTemplate = ({
-  resetPasswordLink = 'https://documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  resetPasswordLink = 'https://sign.octave.consulting',
+  assetBaseUrl = 'https://sign.octave.consulting',
 }: ForgotPasswordTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Password Reset Requested`;
+  const previewText = 'Demande de réinitialisation de votre mot de passe';
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
