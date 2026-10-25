@@ -1,8 +1,6 @@
 import { SUPPORT_EMAIL } from '@documenso/lib/constants/app';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 import { match } from 'ts-pattern';
+
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -16,21 +14,24 @@ export type OrganisationLimitAlertEmailProps = {
 };
 
 export const OrganisationLimitAlertEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  organisationName = 'Organisation Name',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  organisationName = 'Nom de l’organisation',
   counter = 'email',
   kind = 'quota',
   period = '2026-05',
 }: OrganisationLimitAlertEmailProps) => {
-  const { _ } = useLingui();
+  const previewText =
+    kind === 'quotaNearing'
+      ? 'Vous approchez des limites de votre forfait'
+      : 'Vérification de votre organisation requise';
 
-  const previewText = kind === 'quotaNearing' ? msg`Approaching Your Plan Limits` : msg`Organisation Review Required`;
+  const supportContact = SUPPORT_EMAIL || 'support@octave.consulting';
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -38,11 +39,9 @@ export const OrganisationLimitAlertEmailTemplate = ({
 
             <Section className="p-2 text-muted-foreground">
               <Text className="text-center font-medium text-foreground text-lg">
-                {kind === 'quotaNearing' ? (
-                  <Trans>Approaching Your Plan Limits</Trans>
-                ) : (
-                  <Trans>Organisation Review Required</Trans>
-                )}
+                {kind === 'quotaNearing'
+                  ? 'Vous approchez des limites de votre forfait'
+                  : 'Vérification de votre organisation requise'}
               </Text>
 
               <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
@@ -54,23 +53,19 @@ export const OrganisationLimitAlertEmailTemplate = ({
                   <Text className="text-center text-base">
                     {match(counter)
                       .with('document', () => (
-                        <Trans>
-                          We've noticed document activity on your account that exceeds the fair use limits of your
-                          current plan. As a precaution, new document activity has been temporarily paused pending
-                          review.
-                        </Trans>
+                        <>
+                          Nous avons constaté sur votre compte une activité liée aux documents qui dépasse les limites d'utilisation équitable de votre forfait actuel. Par mesure de précaution, la création de nouveaux documents a été temporairement suspendue en attente d'un examen.
+                        </>
                       ))
                       .with('email', () => (
-                        <Trans>
-                          We've noticed email sending activity on your account that exceeds the fair use limits of your
-                          current plan. As a precaution, new email activity has been temporarily paused pending review.
-                        </Trans>
+                        <>
+                          Nous avons constaté sur votre compte des envois d'e-mails qui dépassent les limites d'utilisation équitable de votre forfait actuel. Par mesure de précaution, les nouveaux envois d'e-mails ont été temporairement suspendus en attente d'un examen.
+                        </>
                       ))
                       .with('api', () => (
-                        <Trans>
-                          We've noticed API activity on your account that exceeds the fair use limits of your current
-                          plan. As a precaution, new API activity has been temporarily paused pending review.
-                        </Trans>
+                        <>
+                          Nous avons constaté sur votre compte une activité API qui dépasse les limites d'utilisation équitable de votre forfait actuel. Par mesure de précaution, les nouveaux appels API ont été temporairement suspendus en attente d'un examen.
+                        </>
                       ))
                       .exhaustive()}
                   </Text>
@@ -79,22 +74,19 @@ export const OrganisationLimitAlertEmailTemplate = ({
                   <Text className="text-center text-base">
                     {match(counter)
                       .with('document', () => (
-                        <Trans>
-                          Your organisation is generating documents faster than normal, so some requests are being
-                          temporarily throttled.
-                        </Trans>
+                        <>
+                          Votre organisation génère des documents plus rapidement que la normale. Certaines requêtes sont temporairement ralenties.
+                        </>
                       ))
                       .with('email', () => (
-                        <Trans>
-                          Your organisation is generating emails faster than normal, so some requests are being
-                          temporarily throttled.
-                        </Trans>
+                        <>
+                          Votre organisation génère des e-mails plus rapidement que la normale. Certaines requêtes sont temporairement ralenties.
+                        </>
                       ))
                       .with('api', () => (
-                        <Trans>
-                          Your organisation is generating API requests faster than normal, so some requests are being
-                          temporarily throttled.
-                        </Trans>
+                        <>
+                          Votre organisation effectue des requêtes API plus rapidement que la normale. Certaines requêtes sont temporairement ralenties.
+                        </>
                       ))
                       .exhaustive()}
                   </Text>
@@ -103,22 +95,19 @@ export const OrganisationLimitAlertEmailTemplate = ({
                   <Text className="text-center text-base">
                     {match(counter)
                       .with('document', () => (
-                        <Trans>
-                          Your organisation is nearing its fair use limits for creating documents on your current plan.
-                          Once the limit is reached, new document activity will be temporarily paused.
-                        </Trans>
+                        <>
+                          Votre organisation approche des limites d'utilisation pour la création de documents sur votre forfait actuel. Une fois la limite atteinte, la création de documents sera temporairement suspendue.
+                        </>
                       ))
                       .with('email', () => (
-                        <Trans>
-                          Your organisation is nearing its fair use limits for sending email on your current plan. Once
-                          the limit is reached, new email activity will be temporarily paused.
-                        </Trans>
+                        <>
+                          Votre organisation approche des limites d'envoi d'e-mails sur votre forfait actuel. Une fois la limite atteinte, les nouveaux envois seront temporairement suspendus.
+                        </>
                       ))
                       .with('api', () => (
-                        <Trans>
-                          Your organisation is nearing its fair use limits for making API requests on your current plan.
-                          Once the limit is reached, new API activity will be temporarily paused.
-                        </Trans>
+                        <>
+                          Votre organisation approche des limites de requêtes API sur votre forfait actuel. Une fois la limite atteinte, les nouveaux appels API seront temporairement suspendus.
+                        </>
                       ))
                       .exhaustive()}
                   </Text>
@@ -127,12 +116,13 @@ export const OrganisationLimitAlertEmailTemplate = ({
 
               <Text className="text-center text-base">
                 {kind === 'quotaNearing' ? (
-                  <Trans>
-                    If you expect to need higher limits, please contact support at {SUPPORT_EMAIL} and we will review
-                    your account.
-                  </Trans>
+                  <>
+                    Si vous prévoyez d'avoir besoin de limites supérieures, veuillez contacter le support à l'adresse {supportContact} afin que nous puissions examiner votre compte.
+                  </>
                 ) : (
-                  <Trans>Please contact support at {SUPPORT_EMAIL} and we will review your account.</Trans>
+                  <>
+                    Veuillez contacter le support à l'adresse {supportContact} afin que nous puissions examiner votre compte.
+                  </>
                 )}
               </Text>
             </Section>
