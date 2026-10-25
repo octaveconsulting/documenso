@@ -1,6 +1,3 @@
-import { msg, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Html, Preview, Section, Text } from '../components';
 import { TemplateFooter } from '../template-components/template-footer';
 
@@ -22,47 +19,45 @@ export const BulkSendCompleteEmail = ({
   failedCount,
   errors,
 }: BulkSendCompleteEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Bulk send operation complete for template "${templateName}"`;
+  const previewText = `Envoi en masse terminé pour le modèle « ${templateName} »`;
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
             <Section>
               <Text className="text-sm">
-                <Trans>Hi {userName},</Trans>
+                Bonjour {userName},
               </Text>
 
               <Text className="text-sm">
-                <Trans>Your bulk send operation for template "{templateName}" has completed.</Trans>
+                Votre opération d'envoi en masse pour le modèle « {templateName} » est terminée.
               </Text>
 
               <Text className="font-semibold text-lg">
-                <Trans>Summary:</Trans>
+                Récapitulatif :
               </Text>
 
               <ul className="my-2 ml-4 list-inside list-disc">
                 <li>
-                  <Trans>Total rows processed: {totalProcessed}</Trans>
+                  Lignes traitées : {totalProcessed}
                 </li>
                 <li className="mt-1">
-                  <Trans>Successfully created: {successCount}</Trans>
+                  Créés avec succès : {successCount}
                 </li>
                 <li className="mt-1">
-                  <Trans>Failed: {failedCount}</Trans>
+                  Échecs : {failedCount}
                 </li>
               </ul>
 
               {errors && errors.length > 0 && (
                 <Section className="mt-4">
                   <Text className="font-semibold text-lg">
-                    <Trans>The following errors occurred:</Trans>
+                    Les erreurs suivantes sont survenues :
                   </Text>
 
                   <ul className="my-2 ml-4 list-inside list-disc">
@@ -76,10 +71,7 @@ export const BulkSendCompleteEmail = ({
               )}
 
               <Text className="text-sm">
-                <Trans>
-                  You can view the created documents in your dashboard under the "Documents created from template"
-                  section.
-                </Trans>
+                Vous pouvez consulter les documents créés sur votre tableau de bord dans la section « Documents créés à partir d'un modèle ».
               </Text>
             </Section>
           </Container>
@@ -92,3 +84,5 @@ export const BulkSendCompleteEmail = ({
     </Html>
   );
 };
+
+export default BulkSendCompleteEmail;
