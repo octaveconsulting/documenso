@@ -1,7 +1,4 @@
 import type { TPasswordChangeSource } from '@documenso/lib/jobs/definitions/emails/send-password-reset-success-email';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 
 import { Body, Container, Head, Hr, Html, Link, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
@@ -14,21 +11,20 @@ export type ResetPasswordTemplateProps = Partial<TemplateResetPasswordProps> & {
 };
 
 export const ResetPasswordTemplate = ({
-  userName = 'Lucas Smith',
-  userEmail = 'lucas@documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  userName = 'Un utilisateur',
+  userEmail = 'support@octave.consulting',
+  assetBaseUrl = 'https://sign.octave.consulting',
   source = 'RESET',
 }: ResetPasswordTemplateProps) => {
-  const { _ } = useLingui();
-
-  const previewText = source === 'RESET' ? msg`Password Reset Successful` : msg`Your password was changed`;
+  const previewText =
+    source === 'RESET' ? 'Réinitialisation du mot de passe réussie' : 'Votre mot de passe a été modifié';
 
   return (
     <Html>
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-4 backdrop-blur-sm">
@@ -42,42 +38,36 @@ export const ResetPasswordTemplate = ({
           <Container className="mx-auto mt-12 max-w-xl">
             <Section>
               <Text className="my-4 font-semibold text-base">
-                <Trans>
-                  Hi, {userName}{' '}
-                  <Link className="font-normal text-muted-foreground" href={`mailto:${userEmail}`}>
-                    ({userEmail})
-                  </Link>
-                </Trans>
+                Bonjour {userName}{' '}
+                <Link className="font-normal text-muted-foreground" href={`mailto:${userEmail}`}>
+                  ({userEmail})
+                </Link>
               </Text>
 
               {source === 'RESET' ? (
                 <>
                   <Text className="mt-2 text-base text-muted-foreground">
-                    <Trans>We've changed your password as you asked. You can now sign in with your new password.</Trans>
+                    Votre mot de passe a bien été modifié selon votre demande. Vous pouvez dès à présent vous connecter avec votre nouveau mot de passe.
                   </Text>
                   <Text className="mt-2 text-base text-muted-foreground">
-                    <Trans>
-                      Didn't request a password change? We are here to help you secure your account, just{' '}
-                      <Link className="font-normal text-primary" href="mailto:hi@documenso.com">
-                        contact us
-                      </Link>
-                      .
-                    </Trans>
+                    Vous n'êtes pas à l'origine de cette demande ? Nous sommes là pour vous aider à sécuriser votre compte,{' '}
+                    <Link className="font-normal text-primary" href="mailto:support@octave.consulting">
+                      contactez-nous
+                    </Link>
+                    .
                   </Text>
                 </>
               ) : (
                 <>
                   <Text className="mt-2 text-base text-muted-foreground">
-                    <Trans>Your password was just changed from your account security settings.</Trans>
+                    Votre mot de passe vient d'être modifié depuis les paramètres de sécurité de votre compte.
                   </Text>
                   <Text className="mt-2 text-base text-muted-foreground">
-                    <Trans>
-                      If this was you, no action is needed. If it wasn't, reset your password immediately and{' '}
-                      <Link className="font-normal text-primary" href="mailto:hi@documenso.com">
-                        contact us
-                      </Link>
-                      .
-                    </Trans>
+                    S'il s'agit de vous, aucune action n'est requise. Dans le cas contraire, réinitialisez immédiatement votre mot de passe et{' '}
+                    <Link className="font-normal text-primary" href="mailto:support@octave.consulting">
+                      contactez-nous
+                    </Link>
+                    .
                   </Text>
                 </>
               )}
