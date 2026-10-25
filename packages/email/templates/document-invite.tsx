@@ -1,7 +1,3 @@
-import { RECIPIENT_ROLES_DESCRIPTION } from '@documenso/lib/constants/recipient-roles';
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-import { Trans } from '@lingui/react/macro';
 import type { RecipientRole } from '@prisma/client';
 import { OrganisationType } from '@prisma/client';
 
@@ -30,12 +26,19 @@ export type DocumentInviteEmailTemplateProps = Partial<TemplateDocumentInvitePro
   newAccountWarningSenderEmail?: string;
 };
 
+const ROLE_ACTION_VERB_FR: Record<string, string> = {
+  SIGNER: 'signer',
+  VIEWER: 'consulter',
+  APPROVER: 'approuver',
+  CC: 'recevoir en copie',
+};
+
 export const DocumentInviteEmailTemplate = ({
-  inviterName = 'Lucas Smith',
-  inviterEmail = 'lucas@documenso.com',
-  documentName = 'Open Source Pledge.pdf',
-  signDocumentLink = 'https://documenso.com',
-  assetBaseUrl = 'http://localhost:3002',
+  inviterName = 'Un collaborateur',
+  inviterEmail = 'support@octave.consulting',
+  documentName = 'Document.pdf',
+  signDocumentLink = 'https://sign.octave.consulting',
+  assetBaseUrl = 'https://sign.octave.consulting',
   customBody,
   role,
   selfSigner = false,
@@ -45,20 +48,18 @@ export const DocumentInviteEmailTemplate = ({
   reportUrl,
   newAccountWarningSenderEmail,
 }: DocumentInviteEmailTemplateProps) => {
-  const { _ } = useLingui();
+  const action = ROLE_ACTION_VERB_FR[role] ?? 'signer';
 
-  const action = _(RECIPIENT_ROLES_DESCRIPTION[role].actionVerb).toLowerCase();
-
-  let previewText = msg`${inviterName} has invited you to ${action} ${documentName}`;
+  let previewText = `${inviterName} vous a invité à ${action} « ${documentName} »`;
 
   if (organisationType === OrganisationType.ORGANISATION) {
     previewText = includeSenderDetails
-      ? msg`${inviterName} on behalf of "${teamName}" has invited you to ${action} ${documentName}`
-      : msg`${teamName} has invited you to ${action} ${documentName}`;
+      ? `${inviterName} au nom de « ${teamName} » vous a invité à ${action} « ${documentName} »`
+      : `${teamName} vous a invité à ${action} « ${documentName} »`;
   }
 
   if (selfSigner) {
-    previewText = msg`Please ${action} your document ${documentName}`;
+    previewText = `Veuillez ${action} votre document « ${documentName} »`;
   }
 
   return (
@@ -66,7 +67,7 @@ export const DocumentInviteEmailTemplate = ({
       <Head />
 
       <Body className="mx-auto my-auto bg-background font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section>
           {newAccountWarningSenderEmail && (
@@ -96,12 +97,10 @@ export const DocumentInviteEmailTemplate = ({
             <Section>
               {organisationType === OrganisationType.PERSONAL && (
                 <Text className="my-4 font-semibold text-base">
-                  <Trans>
-                    {inviterName}{' '}
-                    <Link className="font-normal text-muted-foreground" href={`mailto:${inviterEmail}`}>
-                      ({inviterEmail})
-                    </Link>
-                  </Trans>
+                  {inviterName}{' '}
+                  <Link className="font-normal text-muted-foreground" href={`mailto:${inviterEmail}`}>
+                    ({inviterEmail})
+                  </Link>
                 </Text>
               )}
 
@@ -109,9 +108,7 @@ export const DocumentInviteEmailTemplate = ({
                 {customBody ? (
                   <TemplateCustomMessageBody text={customBody} />
                 ) : (
-                  <Trans>
-                    {inviterName} has invited you to {action} the document "{documentName}".
-                  </Trans>
+                  `${inviterName} vous a invité à ${action} le document « ${documentName} ».`
                 )}
               </Text>
             </Section>
