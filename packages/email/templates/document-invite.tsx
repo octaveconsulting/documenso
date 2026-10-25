@@ -26,11 +26,12 @@ export type DocumentInviteEmailTemplateProps = Partial<TemplateDocumentInvitePro
   newAccountWarningSenderEmail?: string;
 };
 
-const ROLE_ACTION_VERB_FR: Record<string, string> = {
+const ROLE_ACTION_VERB_FR: Partial<Record<RecipientRole, string>> = {
   SIGNER: 'signer',
   VIEWER: 'consulter',
   APPROVER: 'approuver',
   CC: 'recevoir en copie',
+  ASSISTANT: 'préparer',
 };
 
 export const DocumentInviteEmailTemplate = ({
@@ -48,7 +49,7 @@ export const DocumentInviteEmailTemplate = ({
   reportUrl,
   newAccountWarningSenderEmail,
 }: DocumentInviteEmailTemplateProps) => {
-  const action = ROLE_ACTION_VERB_FR[role] ?? 'signer';
+  const action = (role && ROLE_ACTION_VERB_FR[role]) ?? 'signer';
 
   let previewText = `${inviterName} vous a invité à ${action} « ${documentName} »`;
 
