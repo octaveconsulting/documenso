@@ -1,6 +1,3 @@
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react';
-
 import { Body, Container, Head, Hr, Html, Preview, Section, Text } from '../components';
 import { TemplateBrandingLogo } from '../template-components/template-branding-logo';
 import { TemplateFooter } from '../template-components/template-footer';
@@ -17,25 +14,22 @@ export type OrganisationDeleteEmailProps = {
 };
 
 export const OrganisationDeleteEmailTemplate = ({
-  assetBaseUrl = 'http://localhost:3002',
-  organisationName = 'Organisation Name Placeholder',
+  assetBaseUrl = 'https://sign.octave.consulting',
+  organisationName = 'Nom de l’organisation',
   deletedByAdmin = false,
 }: OrganisationDeleteEmailProps) => {
-  const { _ } = useLingui();
-
-  const previewText = msg`Your organisation has been deleted`;
-
-  const title = msg`Your organisation has been deleted`;
+  const previewText = 'Votre organisation a été supprimée';
+  const title = 'Votre organisation a été supprimée';
 
   const description = deletedByAdmin
-    ? msg`The following organisation has been deleted by an administrator. You and your members will no longer be able to access this organisation, its teams, or its associated data.`
-    : msg`The following organisation has been deleted. You and your members will no longer be able to access this organisation, its teams, or its associated data.`;
+    ? "L'organisation suivante a été supprimée par un administrateur. Vous et vos membres n'aurez plus accès à cette organisation, à ses équipes ni à ses données associées."
+    : "L'organisation suivante a été supprimée. Vous et vos membres n'aurez plus accès à cette organisation, à ses équipes ni à ses données associées.";
 
   return (
     <Html>
       <Head />
       <Body className="mx-auto my-auto font-sans">
-        <Preview>{_(previewText)}</Preview>
+        <Preview>{previewText}</Preview>
 
         <Section className="bg-background text-muted-foreground">
           <Container className="mx-auto mt-8 mb-2 max-w-xl rounded-lg border border-border border-solid p-2 backdrop-blur-sm">
@@ -46,9 +40,9 @@ export const OrganisationDeleteEmailTemplate = ({
             </Section>
 
             <Section className="p-2 text-muted-foreground">
-              <Text className="text-center font-medium text-foreground text-lg">{_(title)}</Text>
+              <Text className="text-center font-medium text-foreground text-lg">{title}</Text>
 
-              <Text className="my-1 text-center text-base">{_(description)}</Text>
+              <Text className="my-1 text-center text-base">{description}</Text>
 
               <div className="mx-auto my-2 w-fit rounded-lg bg-muted px-4 py-2 font-medium text-base text-muted-foreground">
                 {organisationName}
