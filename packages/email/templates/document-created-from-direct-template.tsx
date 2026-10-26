@@ -1,20 +1,3 @@
-Property 'ASSISTANT' is missing in type '{ SIGNER: string; VIEWER: string; APPROVER: string; CC: string; }' 
-but required in type 'Record<RecipientRole, string>'.
-```[cite: 6, 7]
-
-Dans la version de Prisma utilisée par Documenso, l'enum `RecipientRole` contient également la valeur **`ASSISTANT`**. Comme le dictionnaire était typé en `Record<RecipientRole, string>`, TypeScript exige strictement l'exhaustivité de toutes les clés de l'enum[cite: 6, 7].
-
-Ce problème concerne deux fichiers :
-1. `document-created-from-direct-template.tsx`
-2. `document-invite.tsx`
-
-Voici les versions corrigées avec `Partial<Record<RecipientRole, string>>` et la gestion du rôle `ASSISTANT`.
-
----
-
-### 1. `document-created-from-direct-template.tsx`
-
-```tsx
 import { RecipientRole } from '@prisma/client';
 
 import { Body, Button, Container, Head, Html, Preview, Section, Text } from '../components';
